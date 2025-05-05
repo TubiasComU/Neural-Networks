@@ -17,7 +17,7 @@ def prepare_data(sequence_length=10):
         scalers[col] = scaler
         scaled_data[col] = scaled
 
-    # Criate sequences for each currency
+    # Create sequences for each currency
     def create_sequences(data, seq_len):
         X, y = [], []
         for i in range(len(data) - seq_len):
