@@ -22,3 +22,4 @@ def load_exchange_data():
     df = df[["Date", "USD", "JPY"]].dropna()
 
     print(df.tail())
+    return df

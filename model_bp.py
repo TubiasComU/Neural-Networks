@@ -11,7 +11,7 @@ def build_model(input_shape):
         Flatten(),
         Dense(64, activation='relu'),
         Dense(32, activation='relu'),
-        Dense(1)  # saída contínua
+        Dense(1)  # Output layer for regression
     ])
     model.compile(optimizer='adam', loss='mse', metrics=['mae'])
     return model
