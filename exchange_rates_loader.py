@@ -3,20 +3,22 @@ import requests
 from io import BytesIO
 import zipfile
 
-# Download the ZIP file from ECB
-url = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip"
-response = requests.get(url)
-z = zipfile.ZipFile(BytesIO(response.content))
-csv_file = z.open("eurofxref-hist.csv")
 
-# Read CSV
-df = pd.read_csv(csv_file)
+def load_exchange_data():
+    # Download the ZIP file from ECB
+    url = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip"
+    response = requests.get(url)
+    z = zipfile.ZipFile(BytesIO(response.content))
+    csv_file = z.open("eurofxref-hist.csv")
 
-# Convert date column to datetime and sort by date
-df["Date"] = pd.to_datetime(df["Date"])
-df = df.sort_values("Date")
+    # Read CSV
+    df = pd.read_csv(csv_file)
 
-# Select relevant columns and rename them
-df = df[["Date", "USD", "JPY"]].dropna()
+    # Convert date column to datetime and sort by date
+    df["Date"] = pd.to_datetime(df["Date"])
+    df = df.sort_values("Date")
 
-print(df.tail())
+    # Select relevant columns and rename them
+    df = df[["Date", "USD", "JPY"]].dropna()
+
+    print(df.tail())
